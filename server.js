@@ -47,15 +47,18 @@ async function capture(targetUrl, imageExportPath, pdfExportPath) {
     console.log('Waiting for page to render');
     await page.waitFor(captureDelay);
 
-    console.log('Capturing image screenshot to "%s"', imageExportPath);
-    await page.screenshot({
-      path: imageExportPath ,
-    });
+    await page.emulateMedia('screen');
 
     console.log('Capturing pdf screenshot to "%s"', pdfExportPath);
     await page.pdf({
       path: pdfExportPath,
+      printBackground: true,
       format: 'letter',
+    });
+
+    console.log('Capturing image screenshot to "%s"', imageExportPath);
+    await page.screenshot({
+      path: imageExportPath ,
     });
 
     console.log('Closing page process');
