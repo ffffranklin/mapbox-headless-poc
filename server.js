@@ -1,6 +1,7 @@
 const connect = require('connect');
 const serveStatic = require('serve-static');
 const puppeteer = require('puppeteer');
+const log = require('debug')('mapbox-headless-poc');
 
 const paths = {
   imageExport: 'screenshot.png',
@@ -17,7 +18,7 @@ const captureDelay = 5000;
 const app = connect().use(serveStatic(__dirname));
 
 const server = app.listen(port, function(){
-  console.log('Server running on 8080...');
+  log('Server running on 8080...');
 });
 
 async function capture(targetUrl, imageExportPath, pdfExportPath) {
@@ -38,43 +39,43 @@ async function capture(targetUrl, imageExportPath, pdfExportPath) {
     const browser = await puppeteer.launch(opts);
     const page = await browser.newPage();
 
-    console.log('Navigating to "%s"', targetUrl);
+    log('Navigating to "%s"', targetUrl);
     await page.goto(targetUrl, {
       timeout: pageLoadTimeout,
       waitUntil: 'networkidle2',
     });
 
-    console.log('Waiting for page to render');
+    log('Waiting for page to render');
     await page.waitFor(captureDelay);
 
     await page.emulateMedia('screen');
 
-    console.log('Capturing pdf screenshot to "%s"', pdfExportPath);
+    log('Capturing pdf screenshot to "%s"', pdfExportPath);
     await page.pdf({
       path: pdfExportPath,
       printBackground: true,
       format: 'letter',
     });
 
-    console.log('Capturing image screenshot to "%s"', imageExportPath);
+    log('Capturing image screenshot to "%s"', imageExportPath);
     await page.screenshot({
       path: imageExportPath ,
     });
 
-    console.log('Closing page process');
+    log('Closing page process');
     await page.close();
 
-    console.log('Closing browser process');
+    log('Closing browser process');
     await browser.close();
   } catch(e) {
-    console.error(e);
+    log(e);
   } finally {
-    console.log('Closing server');
-    server.close(()=> console.log('Server closed!'))
+    log('Closing server');
+    server.close(()=> log('Server closed!'))
   }
 }
 
 /** __main__ **/
 capture(urls.poc, paths.imageExport, paths.pdfExport)
-  .then(()=> console.log('Done'))
-  .catch((e)=> console.error(e));
+  .then(()=> log('Done'))
+  .catch((e)=> log(e));
