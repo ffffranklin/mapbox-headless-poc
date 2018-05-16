@@ -9,6 +9,10 @@ Perform capture with the following command
 npm run start
 ```
 
-The server script will load and serve `index.html` and generate a screen shot.   `screenshot.png` will then be updated
+the output should look something like this
 
-![test](https://github.com/ffffranklin/mapbox-headless-poc/raw/master/screenshot.png)
+<img src="https://github.com/ffffranklin/mapbox-headless-poc/raw/master/public/log.png" alt="log" width="660" />
+
+The server script will load and serve `index.html` and generate a image and pdf screen shot. For example:
+
+![screenshot](https://github.com/ffffranklin/mapbox-headless-poc/raw/master/screenshot.png)
