@@ -1,19 +1,24 @@
 const connect = require('connect');
 const serveStatic = require('serve-static');
 const puppeteer = require('puppeteer');
-const app = connect();
-const port = 8080;
+
+const paths = {
+  screenshot: 'screenshot.png',
+};
 const urls = {
   poc: 'http://localhost:8080',
   report: 'https://modeanalytics.com/modeqa/reports/f3fc6ff8b4f2?secret_key=502d29e4088cb4e5aa6314b4',
 };
 
-app.use(serveStatic(__dirname));
+const port = 8080;
+const pageTimeout = 5000;
+const app = connect().use(serveStatic(__dirname));
+
 const server = app.listen(port, function(){
   console.log('Server running on 8080...');
 });
 
-(async () => {
+async function run() {
   try {
     // necessary to work with gpu
     // inspiredby: https://github.com/GoogleChrome/puppeteer/issues/1260#issuecomment-348878456
@@ -26,15 +31,17 @@ const server = app.listen(port, function(){
       ]
     });
     const page = await browser.newPage();
+
     await page.goto(urls.poc);
-    // await page.goto(urls.report);
-    setTimeout(async ()=> {
-      await page.screenshot({path: 'screenshot.png'});
-      await browser.close();
-    }, 5000)
+    await page.waitFor(pageTimeout);
+    await page.screenshot({path: paths.screenshot});
+    await browser.close();
   } catch(e) {
     console.error(e);
   } finally {
     server.close(()=> console.log('Server closed!'))
   }
-})();
+}
+
+/** __main__ **/
+run();
