@@ -23,7 +23,9 @@ async function run() {
     // necessary to work with gpu
     // inspiredby: https://github.com/GoogleChrome/puppeteer/issues/1260#issuecomment-348878456
     const browser = await puppeteer.launch({
+      // prevents puppeteer from setting headless flags
       headless: false,
+      // so we can set them here without --disable-gpu
       args: [
         '--headless',
         '--hide-scrollbars',
