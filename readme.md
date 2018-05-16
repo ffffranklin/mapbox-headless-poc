@@ -11,5 +11,4 @@ npm run start
 
 The server script will load and serve `index.html` and generate a screen shot.   `screenshot.png` will then be updated
 
-eg
-
+![test](https://github.com/ffffranklin/mapbox-headless-poc/raw/master/screenshot.png)
