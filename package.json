@@ -6,8 +6,8 @@
   "scripts": {
     "capture": "DEBUG=mapbox-headless-poc node server",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "vm:capture": "vagrant ssh -c \"source ~/.nvm/nvm.sh && cd /vagrant && npm run start\"",
-    "vm:init": "vagrant up"
+    "vm:capture": "vagrant ssh -c \"source ~/.nvm/nvm.sh && cd /vagrant && npm run capture\"",
+    "vm:init": "vagrant destroy && vagrant up"
   },
   "author": "",
   "license": "ISC",
