@@ -4,6 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "vm:init": "vagrant up",
+    "vm:start": "vagrant ssh -c \"source ~/.nvm/nvm.sh && cd /vagrant && npm run start\"",
     "start": "DEBUG=mapbox-headless-poc node server",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
