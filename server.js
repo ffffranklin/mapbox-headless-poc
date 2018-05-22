@@ -8,8 +8,9 @@ const paths = {
   pdfExport: 'screenshot.pdf',
 };
 const urls = {
-  poc: 'http://localhost:8080',
-  report: 'https://modeanalytics.com/modeqa/reports/f3fc6ff8b4f2?secret_key=502d29e4088cb4e5aa6314b4',
+  pageWithMap: 'http://localhost:8080',
+  reportWithMap: 'https://modeanalytics.com/modeqa/reports/f3fc6ff8b4f2?secret_key=502d29e4088cb4e5aa6314b4',
+  gpuProfile: 'chrome://gpu',
 };
 
 const port = 8080;
@@ -76,6 +77,6 @@ async function capture(targetUrl, imageExportPath, pdfExportPath) {
 }
 
 /** __main__ **/
-capture(urls.poc, paths.imageExport, paths.pdfExport)
+capture(urls.pageWithMap, paths.imageExport, paths.pdfExport)
   .then(()=> log('Done'))
   .catch((e)=> log(e));
