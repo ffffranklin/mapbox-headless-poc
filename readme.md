@@ -3,6 +3,14 @@ mapbox-headless-poc
 
 ### Getting Started
 
+Set up locally by cloning this repoository and installing the dependencies with `npm` (node `v9.11.1` recommended)
+
+```sh
+git clone https://github.com/ffffranklin/mapbox-headless-poc.git
+cd ./mapbox-headless-poc
+npm install
+```
+
 Perform capture with the following command
 
 ```sh
@@ -30,3 +38,11 @@ Then you should be ready to capture with the following command
 ```sh
 npm run vm:capture
 ```
+
+### FAQ
+
+Q: I ran `npm run vm:capture` and received the following assertion error:
+
+![screenshot](https://raw.githubusercontent.com/ffffranklin/mapbox-headless-poc/master/public/assertion-error.png?cache_bust=1)
+
+A: Re-initialize the vm by removing the `node_modules` folder and running `npm run vm:init`.  This happens because `npm run capture` and `npm run vm:capture` depend on different sets of resources for some reason (probably due to OS differences).
