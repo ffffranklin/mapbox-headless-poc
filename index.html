@@ -15,16 +15,12 @@
   <script>
     mapboxgl.accessToken = 'pk.eyJ1IjoiZnJhbmtsaW4tYXQtbW9kZSIsImEiOiJjamg4NjUydmwwZmVoMzN2dHVkMTJkeTR5In0.gbk2MwHq0qa75VwQRHPqgA';
     var map = new mapboxgl.Map({
+      preserveDrawingBuffer: true,
       center: [-122.43358758641273, 37.778468242967605],
       zoom: 11,
       container: 'map',
       style: 'mapbox://styles/mapbox/navigation-preview-day-v2',
     });
-
-    var canvas = document.querySelector('.mapboxgl-canvas');
-    var gl = canvas.getContext("experimental-webgl", {preserveDrawingBuffer: true});
-    gl.viewportWidth = canvas.width;
-    gl.viewportHeight = canvas.height;
   </script>
 </body>
 </html>
