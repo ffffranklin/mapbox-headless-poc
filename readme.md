@@ -23,7 +23,7 @@ the output should look something like this
 
 The server script will load and serve `index.html` and generate a image and pdf screen shot. For example:
 
-![screenshot](https://github.com/ffffranklin/mapbox-headless-poc/raw/master/screenshot.png)
+![screenshot](https://github.com/ffffranklin/mapbox-headless-poc/raw/master/screenshot.png?cache_bust=1)
 
 ### Using Vagrant
 
