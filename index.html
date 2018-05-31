@@ -6,21 +6,58 @@
         content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Mapbox Report</title>
+  <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
   <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.45.0/mapbox-gl.js'></script>
   <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.45.0/mapbox-gl.css' rel='stylesheet' />
 </head>
 <body>
   <h1></h1>
-  <div id='map' style='width: 100%; height: 300px;'></div>
+
+  <div id="mapbox-map-container" style="width: 100%; height: 300px;"></div>
+  <div id="google-map-container" style="width: 100%; height: 300px;"></div>
+
   <script>
-    mapboxgl.accessToken = 'pk.eyJ1IjoiZnJhbmtsaW4tYXQtbW9kZSIsImEiOiJjamg4NjUydmwwZmVoMzN2dHVkMTJkeTR5In0.gbk2MwHq0qa75VwQRHPqgA';
-    var map = new mapboxgl.Map({
-      preserveDrawingBuffer: true,
-      center: [-122.43358758641273, 37.778468242967605],
-      zoom: 11,
-      container: 'map',
-      style: 'mapbox://styles/mapbox/navigation-preview-day-v2',
-    });
+    (function main(){
+      let center = [-122.43358758641273, 37.778468242967605];
+      let markerArray = [center, [center[0]+0.01, center[1] + 0.02], [center[0]-0.01, center[1]]];
+
+      drawMapbox(center, markerArray);
+      drawGoogleMaps(center, markerArray);
+    })();
+
+    function drawMapbox(center, markerArray) {
+      mapboxgl.accessToken = 'pk.eyJ1IjoiZnJhbmtsaW4tYXQtbW9kZSIsImEiOiJjamg4NjUydmwwZmVoMzN2dHVkMTJkeTR5In0.gbk2MwHq0qa75VwQRHPqgA';
+      let mapbox = new mapboxgl.Map({
+        // necessary for headless pdf exporting
+        preserveDrawingBuffer: true,
+        center,
+        zoom: 11,
+        container: 'mapbox-map-container',
+        style: 'mapbox://styles/mapbox/navigation-preview-day-v2',
+      });
+
+      markerArray.forEach(function(m) {
+        new mapboxgl.Marker().setLngLat(m).addTo(mapbox);
+      });
+    }
+
+    function drawGoogleMaps(center, markerArray) {
+      let gMapsContainer = document.getElementById("google-map-container");
+      let gMapsCenter = new google.maps.LatLng(center[1], center[0]);
+      let gmap = new google.maps.Map(gMapsContainer, {
+        zoom: 12,
+        center: gMapsCenter,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+      });
+
+      markerArray.forEach(function([lng, lat]) {
+        void new google.maps.Marker({
+          position: {lat, lng},
+          map: gmap,
+          title: "Foo"
+        });
+      });
+    }
   </script>
 </body>
 </html>
