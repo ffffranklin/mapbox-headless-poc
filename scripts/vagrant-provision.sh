@@ -22,9 +22,6 @@ nvm alias default v9.11.1
 nvm use v9.11.1
 
 echo "Provisioning: Initializing POC"
-#git clone /vagrant $HOME/poc
-#cd $HOME/poc
-#git pull
 cd /vagrant
 npm i
 
